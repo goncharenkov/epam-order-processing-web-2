@@ -1,0 +1,45 @@
+spring.jmx:
+  enabled: false
+
+server:
+  port: 8090
+
+security:
+  basic:
+    enabled: false
+
+management:
+  port: 8091
+  security:
+    enabled: false
+
+project:
+  name: web-service-2
+  version: 0.1
+  description: description
+info:
+  build:
+    artifact: ${project.artifactId}
+    name: ${project.name}
+    description: ${project.description}
+    version: ${project.version}
+
+order.service:
+  name: 'default profile:'
+---
+spring:
+  profiles: mysql
+
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost/orders
+    username: admin
+    password: password
+
+  jpa:
+    hibernate:
+      dialect: org.hibernate.dialect.MySQLInnoDBDialect
+      ddl-auto: update
+
+order.service:
+  name: 'test profile:'
