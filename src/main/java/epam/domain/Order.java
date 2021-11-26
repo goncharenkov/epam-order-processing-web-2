@@ -21,6 +21,9 @@ public class Order {
     @Column()
     private String description;
 
+    @Column(columnDefinition = "boolean default false")
+    private Boolean sent;
+
     @OneToMany(mappedBy = "order")
     private Set<Product> products;
 
@@ -49,6 +52,14 @@ public class Order {
 
     public String getDescription() {
         return description;
+    }
+
+    public void setIsSent(Boolean isSent) {
+        this.sent = isSent;
+    }
+
+    public Boolean getIsSent() {
+        return sent;
     }
 
     @Override

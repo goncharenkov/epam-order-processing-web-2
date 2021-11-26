@@ -29,6 +29,15 @@ public class OrderController extends AbstractRestHandler {
         response.setHeader("Location", request.getRequestURL().append("/").append(createdOrder.getOrderId()).toString());
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = {"application/json"}, produces = {"application/json"})
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(value = "Update an order")
+    public void updateOder(@ApiParam(value = "The ID of the existing order", required = true)
+                           @PathVariable("id") int id,
+                           @RequestBody Order order, HttpServletRequest request, HttpServletResponse response) {
+        this.orderService.updateOrder(order);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Get a single order.")
@@ -49,4 +58,5 @@ public class OrderController extends AbstractRestHandler {
         checkResourceFound(this.orderService.getOrder(id));
         this.orderService.deleteOrder(id);
     }
+
 }

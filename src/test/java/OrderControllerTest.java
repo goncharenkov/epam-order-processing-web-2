@@ -57,11 +57,25 @@ public class OrderControllerTest {
                 .andReturn();
         int id = getResourceIdFromUrl(result.getResponse().getRedirectedUrl());
 
+        //update order
+        Order order2 = mockOrder("new order 2");
+        order2.setOrderId(id);
+        order2.setIsSent(true);
+        byte[] orderJson2 = toJson(order);
+
+        mvc.perform(MockMvcRequestBuilders.put("/epam/v1/orders/" + id)
+                        .content(orderJson2)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNoContent())
+                .andReturn();
+
         //get order by id
         mvc.perform(MockMvcRequestBuilders.get("/epam/v1/orders/" + id)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(jsonPath("$.orderId", is(id)))
+//                .andExpect(jsonPath("$.sent", is(order2.getIsSent())))
                 .andExpect(jsonPath("$.name", is(order.getName())))
                 .andExpect(jsonPath("$.description", is(order.getDescription())));
 

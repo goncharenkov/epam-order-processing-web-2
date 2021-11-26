@@ -9,9 +9,9 @@ lsof -nP -iTCP:8091
 ## Implemented rest end points:
 [get] http://localhost:8091/health
 
-[get] http://localhost:8091/health
+[get] http://localhost:8091/env
 
-[get] http://localhost:8091/health
+[get] http://localhost:8091/info
 
 [get] http://localhost:8090/epam/v1/orders/{id}
 
@@ -24,3 +24,5 @@ lsof -nP -iTCP:8091
 [post] http://localhost:8090/epam/v1/products
 
 [delete] http://localhost:8090/epam/v1/products/id}
+
+[update] http://localhost:8090/epam/v1/products/{id}
